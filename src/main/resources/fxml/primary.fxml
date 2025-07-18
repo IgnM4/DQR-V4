@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.mycompany.drivequestrentals.interfaz.PrimaryController">
+    <children>
+        <VBox spacing="10" alignment="CENTER" layoutX="50" layoutY="30">
+            <Label text="DriveQuest Rentals - Menú Principal"/>
+            <Button text="Registrar Cliente" onAction="#irRegistroCliente"/>
+            <Button text="Registrar Vehículo" onAction="#irRegistroVehiculo"/>
+            <Button text="Registrar Arriendo" onAction="#irRegistroArriendo"/>
+            <Button text="Registrar Pago" onAction="#irRegistroPago"/>
+            <Button text="Registrar Mantenimiento" onAction="#irRegistroMantenimiento"/>
+            <Button text="Salir" onAction="#salirDelSistema"/>
+        </VBox>
+    </children>
+</AnchorPane>

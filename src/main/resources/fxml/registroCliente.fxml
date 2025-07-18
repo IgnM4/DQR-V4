@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.mycompany.drivequestrentals.interfaz.RegistroClienteController">
+    <children>
+        <VBox spacing="10" layoutX="50" layoutY="30">
+            <Label text="Registro de Cliente"/>
+            <TextField fx:id="txtNombre" promptText="Nombre"/>
+            <TextField fx:id="txtApellido" promptText="Apellido"/>
+            <TextField fx:id="txtRutOPasaporte" promptText="RUT o Pasaporte"/>
+            <TextField fx:id="txtTelefono" promptText="Teléfono"/>
+            <TextField fx:id="txtEmail" promptText="Correo Electrónico"/>
+            <Button text="Registrar" onAction="#registrarCliente"/>
+            <Button text="Volver" onAction="#volverAlMenu"/>
+        </VBox>
+    </children>
+</AnchorPane>

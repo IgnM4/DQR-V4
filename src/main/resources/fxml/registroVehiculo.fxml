@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.mycompany.drivequestrentals.interfaz.RegistroVehiculoController">
+    <children>
+        <VBox spacing="10" layoutX="50" layoutY="30">
+            <Label text="Registro de Vehículo"/>
+            <TextField fx:id="txtPatente" promptText="Patente"/>
+            <TextField fx:id="txtMarca" promptText="Marca"/>
+            <TextField fx:id="txtModelo" promptText="Modelo"/>
+            <TextField fx:id="txtAnio" promptText="Año"/>
+            <TextField fx:id="txtValorDiario" promptText="Valor Diario"/>
+            <ComboBox fx:id="comboTipoVehiculo" promptText="Tipo de Vehículo"/>
+            <TextField fx:id="txtCapacidadCarga" promptText="Capacidad de Carga"/>
+            <TextField fx:id="txtCantidadAsientos" promptText="Cantidad de Asientos"/>
+            <Button text="Registrar" onAction="#registrarVehiculo"/>
+            <Button text="Volver" onAction="#volverAlMenu"/>
+        </VBox>
+    </children>
+</AnchorPane>
