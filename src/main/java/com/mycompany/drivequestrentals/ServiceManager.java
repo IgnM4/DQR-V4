@@ -9,38 +9,98 @@ import com.mycompany.drivequestrentals.servicios.*;
  */
 public final class ServiceManager {
 
-    private static final ClienteService CLIENTE_SERVICE = new ClienteService();
-    private static final FlotaVehiculosService FLOTA_SERVICE = new FlotaVehiculosService();
-    private static final ArriendoService ARRIENDO_SERVICE = new ArriendoService();
-    private static final PagoService PAGO_SERVICE = new PagoService();
-    private static final MantenimientoService MANTENIMIENTO_SERVICE = new MantenimientoService();
-    private static final ReservaService RESERVA_SERVICE = new ReservaService();
+    /**
+     * Instancia singleton del administrador de servicios. Se crea de forma
+     * perezosa cuando alguno de los servicios es solicitado por primera vez.
+     */
+    private static ServiceManager instance;
+
+    private ClienteService clienteService;
+    private FlotaVehiculosService flotaService;
+    private ArriendoService arriendoService;
+    private PagoService pagoService;
+    private MantenimientoService mantenimientoService;
+    private ReservaService reservaService;
 
     private ServiceManager() {
-        // Evita instanciación
+        // constructor privado para evitar instanciación externa
+    }
+
+    /**
+     * Devuelve la instancia única del ServiceManager utilizando inicialización
+     * perezosa.
+     */
+    private static synchronized ServiceManager getInstance() {
+        if (instance == null) {
+            instance = new ServiceManager();
+        }
+        return instance;
     }
 
     public static ClienteService getClienteService() {
-        return CLIENTE_SERVICE;
+        return getInstance().obtenerClienteService();
     }
 
     public static FlotaVehiculosService getFlotaService() {
-        return FLOTA_SERVICE;
+        return getInstance().obtenerFlotaService();
     }
 
     public static ArriendoService getArriendoService() {
-        return ARRIENDO_SERVICE;
+        return getInstance().obtenerArriendoService();
     }
 
     public static PagoService getPagoService() {
-        return PAGO_SERVICE;
+        return getInstance().obtenerPagoService();
     }
 
     public static MantenimientoService getMantenimientoService() {
-        return MANTENIMIENTO_SERVICE;
+        return getInstance().obtenerMantenimientoService();
     }
 
     public static ReservaService getReservaService() {
-        return RESERVA_SERVICE;
+        return getInstance().obtenerReservaService();
+    }
+
+    // ===== Métodos de inicialización perezosa por servicio =====
+    private ClienteService obtenerClienteService() {
+        if (clienteService == null) {
+            clienteService = new ClienteService();
+        }
+        return clienteService;
+    }
+
+    private FlotaVehiculosService obtenerFlotaService() {
+        if (flotaService == null) {
+            flotaService = new FlotaVehiculosService();
+        }
+        return flotaService;
+    }
+
+    private ArriendoService obtenerArriendoService() {
+        if (arriendoService == null) {
+            arriendoService = new ArriendoService();
+        }
+        return arriendoService;
+    }
+
+    private PagoService obtenerPagoService() {
+        if (pagoService == null) {
+            pagoService = new PagoService();
+        }
+        return pagoService;
+    }
+
+    private MantenimientoService obtenerMantenimientoService() {
+        if (mantenimientoService == null) {
+            mantenimientoService = new MantenimientoService();
+        }
+        return mantenimientoService;
+    }
+
+    private ReservaService obtenerReservaService() {
+        if (reservaService == null) {
+            reservaService = new ReservaService();
+        }
+        return reservaService;
     }
 }
