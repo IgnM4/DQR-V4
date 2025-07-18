@@ -2,6 +2,9 @@ package com.mycompany.drivequestrentals;
 
 import javafx.application.Application;
 import java.util.Scanner;
+import com.mycompany.drivequestrentals.hilos.VerificadorReservasActivasThread;
+import com.mycompany.drivequestrentals.hilos.RegistroMantenimientoThread;
+import com.mycompany.drivequestrentals.hilos.RecordatorioFinReservaThread;
 
 /**
  * Punto de entrada de la aplicación. Aquí se inicializan los servicios
@@ -16,6 +19,9 @@ public class Main {
 
     public static void main(String[] args) {
         try (Scanner scanner = new Scanner(System.in)) {
+            // Inicializar servicios para asegurar que todas las capas estén listas
+            inicializarServicios();
+
             System.out.println("===========================================");
             System.out.println("🚗 DriveQuestrentals - Sistema de Arriendos");
             System.out.println("===========================================");
@@ -29,10 +35,12 @@ public class Main {
             switch (opcion) {
                 case "1":
                     System.out.println("🔵 Iniciando aplicación en modo gráfico...");
+                    iniciarTareasEnSegundoPlano();
                     Application.launch(App.class, args);
                     break;
                 case "2":
                     System.out.println("🟢 Iniciando aplicación en modo consola...");
+                    iniciarTareasEnSegundoPlano();
                     iniciarModoConsola(scanner);
                     break;
                 default:
@@ -83,5 +91,32 @@ public class Main {
             }
         }
 
+    }
+
+    /**
+     * Crea las instancias de servicios para asegurar que todo esté inicializado.
+     */
+    private static void inicializarServicios() {
+        ServiceManager.getClienteService();
+        ServiceManager.getFlotaService();
+        ServiceManager.getArriendoService();
+        ServiceManager.getPagoService();
+        ServiceManager.getMantenimientoService();
+        ServiceManager.getReservaService();
+    }
+
+    /**
+     * Inicia hilos de comprobación de mantenimientos y reservas activas.
+     * Estas tareas se ejecutan en segundo plano al iniciar la aplicación.
+     */
+    private static void iniciarTareasEnSegundoPlano() {
+        new RegistroMantenimientoThread(
+                ServiceManager.getFlotaService().listarVehiculos()).start();
+
+        new VerificadorReservasActivasThread(
+                ServiceManager.getReservaService().listarReservas()).start();
+
+        new RecordatorioFinReservaThread(
+                ServiceManager.getReservaService().listarReservas()).start();
     }
 }
