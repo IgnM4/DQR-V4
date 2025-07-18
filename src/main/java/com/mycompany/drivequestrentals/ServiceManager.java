@@ -9,38 +9,58 @@ import com.mycompany.drivequestrentals.servicios.*;
  */
 public final class ServiceManager {
 
-    private static final ClienteService CLIENTE_SERVICE = new ClienteService();
-    private static final FlotaVehiculosService FLOTA_SERVICE = new FlotaVehiculosService();
-    private static final ArriendoService ARRIENDO_SERVICE = new ArriendoService();
-    private static final PagoService PAGO_SERVICE = new PagoService();
-    private static final MantenimientoService MANTENIMIENTO_SERVICE = new MantenimientoService();
-    private static final ReservaService RESERVA_SERVICE = new ReservaService();
+    // Instancia única para seguir el patrón Singleton
+    private static ServiceManager instance;
+
+    private final ClienteService clienteService;
+    private final FlotaVehiculosService flotaService;
+    private final ArriendoService arriendoService;
+    private final PagoService pagoService;
+    private final MantenimientoService mantenimientoService;
+    private final ReservaService reservaService;
 
     private ServiceManager() {
-        // Evita instanciación
+        clienteService = new ClienteService();
+        flotaService = new FlotaVehiculosService();
+        arriendoService = new ArriendoService();
+        pagoService = new PagoService();
+        mantenimientoService = new MantenimientoService();
+        reservaService = new ReservaService();
+    }
+
+    /**
+     * Obtiene la instancia única del gestor de servicios.
+     *
+     * @return instancia singleton de {@code ServiceManager}
+     */
+    public static synchronized ServiceManager getInstance() {
+        if (instance == null) {
+            instance = new ServiceManager();
+        }
+        return instance;
     }
 
     public static ClienteService getClienteService() {
-        return CLIENTE_SERVICE;
+        return getInstance().clienteService;
     }
 
     public static FlotaVehiculosService getFlotaService() {
-        return FLOTA_SERVICE;
+        return getInstance().flotaService;
     }
 
     public static ArriendoService getArriendoService() {
-        return ARRIENDO_SERVICE;
+        return getInstance().arriendoService;
     }
 
     public static PagoService getPagoService() {
-        return PAGO_SERVICE;
+        return getInstance().pagoService;
     }
 
     public static MantenimientoService getMantenimientoService() {
-        return MANTENIMIENTO_SERVICE;
+        return getInstance().mantenimientoService;
     }
 
     public static ReservaService getReservaService() {
-        return RESERVA_SERVICE;
+        return getInstance().reservaService;
     }
 }
